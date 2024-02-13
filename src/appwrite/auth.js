@@ -43,4 +43,17 @@ class Auth{
             console.log("error while user logout: ", error)
         }
     }
+
+    async guestLogin () {
+        try {
+        return this.account.createAnonymousSession()
+    
+        } catch (error) {
+             console.log("error while guest login : ", error)
+        }
+     }
 }
+
+const appwriteAuthService = new Auth()
+
+export const {createUser, login, logout, guestLogin} = appwriteAuthService
