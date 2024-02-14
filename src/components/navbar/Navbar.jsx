@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "../container/Container";
-import Logo from "../logo/logo";
+import Logo from "../logo/Logo";
 import { NavLink } from "react-router-dom";
 import Button from "../button/Button";
 import NavCart from "./NavCart";

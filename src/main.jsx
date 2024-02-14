@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Container } from "./components/index.js";
-import {AllProducts, Home, Login, MenProducts, WomenProducts} from "./pages";
+import {AdminLogin, AdminProductsPanel, AllProducts, Home, Login, MenProducts, NotFoundPage, WomenProducts} from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -31,8 +30,16 @@ const router = createBrowserRouter([
         element: <WomenProducts/>
       },
       {
+        path: '/admin/login',
+        element: <AdminLogin/>
+      },
+      {
+        path: '/admin/products',
+        element: <AdminProductsPanel/>
+      },
+      {
         path: "*",
-        element: <Container>currently not created yet</Container>,
+        element: <NotFoundPage/>,
       },
     ],
   },
