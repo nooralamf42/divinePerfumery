@@ -39,7 +39,7 @@ function AdminProductsPanel() {
             <Dialog id="addProductDialog">
                 <AddProductsForm/>
             </Dialog>
-            <Button name={'Add New Product'} className={'fixed bottom-0 right-0 m-12 bg-white'} onClick={openDialog}/>
+            <Button name={'Add New Product'} className={'fixed bottom-0 right-0 m-12'} onClick={openDialog}/>
         </Container>
     </section>
   )

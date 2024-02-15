@@ -3,12 +3,11 @@ import { AiOutlineClose } from "react-icons/ai";
 import React from "react";
 
 function Card({
-  featuredImage,
+  images=[],
   name,
   description=null,
-  price = null,
+  price = [],
   isNew = false,
-  discountPrice = null,
   className = "",
   admin = false,
 }) {
@@ -16,8 +15,8 @@ function Card({
     <div className="w-[250px] rounded-2xl border shadow-md overflow-hidden relative mt-4">
       <div className="h-[300px] bg-black overflow-hidden">
         <img
-          src={featuredImage}
-          className="object-cover h-full hover:scale-110 duration-300 hover:brightness-100 hover:saturate-[1.15] hover:blur-[0.5px] hover:cursor-pointer"
+          src={images[0]}
+          className="object-cover h-full w-full hover:scale-110 duration-300 hover:brightness-100 hover:saturate-[1.15] hover:blur-[0.5px] hover:cursor-pointer"
           alt=""
           srcset=""
         />
@@ -32,13 +31,13 @@ function Card({
         {
             description && <p>{description}</p>
         }
-        <p className={`${price == null ? "hidden" : "text-2xl"}`}>
-          {!discountPrice ? (
-            `₹ ${price}`
+        <p className={`${price.length<1 ? "hidden" : "text-2xl"}`}>
+          {price.length==1 ? (
+            `₹ ${price[0]}`
           ) : (
             <>
-              <span className="line-through mr-2 text-lg">₹ {price}</span>
-              <span className="font-semibold">₹{discountPrice}</span>
+              <span className="line-through mr-2 text-lg">₹ {price[0]}</span>
+              <span className="font-semibold">₹{price[1]}</span>
             </>
           )}
         </p>

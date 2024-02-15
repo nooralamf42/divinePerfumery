@@ -7,15 +7,15 @@ const heroImage =
 const categories = [
   {
     name: "Musk",
-    featuredImage: "https://houseofattar.co.uk/wp-content/uploads/2022/09/Black-Musk-12ml.jpg",
+    images: ["https://houseofattar.co.uk/wp-content/uploads/2022/09/Black-Musk-12ml.jpg"],
   },
   {
     name: "Oudh",
-    featuredImage: "https://kannaujattar.com/wp-content/uploads/2017/08/dehnal-oud-attar-kannauj-scaled.jpg",
+    images: ["https://kannaujattar.com/wp-content/uploads/2017/08/dehnal-oud-attar-kannauj-scaled.jpg"],
   },
   {
     name: "Mitti",
-    featuredImage: "https://m.media-amazon.com/images/I/712HL57L7WL.jpg",
+    images: ["https://m.media-amazon.com/images/I/712HL57L7WL.jpg"],
   },
 ];
 

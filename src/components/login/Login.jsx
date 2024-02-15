@@ -1,14 +1,30 @@
-import React from 'react'
-import {useForm} from 'react-hook-form'
+import React from "react";
+import { useForm } from "react-hook-form";
+import appwriteAuthService from "../../appwrite/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../store/appSlice";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
-function Login({
-  header = 'Log in to your account'
-}) {
-    const { handleSubmit, register } = useForm();
-
-    const submit = (formData) => {
-      console.log(formData, "formdata");
-    };
+function Login({ header = "Log in to your account" }) {
+  const { handleSubmit, register } = useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isAdmin = useSelector((state) => state.isAdmin);
+  const submit = (formData) => {
+    appwriteAuthService
+      .login(formData)
+      .then((userData) => {
+        appwriteAuthService.login(userData);
+        dispatch(login(userData));
+        toast("You are logged in successfully");
+      })
+      .then(()=>{
+        isAdmin ? navigate("/admin/products") : navigate("/products/all")
+        console.log(isAdmin)
+      })
+      .catch((error) => toast(error.message));
+  };
 
   return (
     <section className="dark:bg-gray-900">
@@ -94,7 +110,7 @@ function Login({
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-export default Login
+export default Login;

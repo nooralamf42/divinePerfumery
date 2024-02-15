@@ -1,5 +1,5 @@
 import { Client, Account, ID} from "appwrite";
-import { APPWRITE_COLLECTION_ID, APPWRITE_DATABASE_ID, APPWRITE_PROJECT_ID, APPWRITE_PROJECT_URL } from "../envConfig";
+import { APPWRITE_PROJECT_ID, APPWRITE_PROJECT_URL } from "../envConfig";
 
 class Auth{
     client = new Client
@@ -12,6 +12,14 @@ class Auth{
         this.account = new Account(this.client)
     }
 
+    async getLogged (){
+        try {
+            return await this.account.get()
+        } catch (error) {
+            console.log("error while getting logged user ", error)
+        }
+    }
+
     async createUser ({email, password, name}) {
        try {
         const user = this.account.create(
@@ -21,7 +29,8 @@ class Auth{
             name
         )
         if(user){
-            return await  this.login(email, password)
+            await this.login(email, password)
+            return user
         }
        } catch (error) {
             console.log("error while creating user : ", error)
@@ -55,5 +64,5 @@ class Auth{
 }
 
 const appwriteAuthService = new Auth()
+export default appwriteAuthService
 
-export const {createUser, login, logout, guestLogin} = appwriteAuthService

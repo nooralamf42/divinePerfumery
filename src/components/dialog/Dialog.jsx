@@ -7,7 +7,7 @@ function Dialog({id, children}) {
     document.getElementById('addProductDialog').close()
 }
   return (
-    <dialog open id={id} className='w-full h-full fixed z-20 top-0 bottom-0 backdrop-blur-2xl bg-gray-50'>
+    <dialog id={id} className='w-full h-full fixed z-20 top-0 bottom-0 backdrop-blur-2xl bg-gray-50'>
       {
         children
       }

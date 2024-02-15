@@ -2,7 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import {AdminLogin, AdminProductsPanel, AllProducts, Home, Login, MenProducts, NotFoundPage, WomenProducts} from "./pages";
+import {
+  AdminLogin,
+  AdminProductsPanel,
+  AllProducts,
+  Home,
+  Login,
+  MenProducts,
+  NotFoundPage,
+  WomenProducts,
+} from "./pages";
+import { Provider } from "react-redux";
+import store from './store/store.js'
 
 const router = createBrowserRouter([
   {
@@ -10,41 +21,43 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '',
-        element: <Home/>
+        path: "",
+        element: <Home />,
       },
       {
-        path: '/login',
-        element: <Login/>
+        path: "/login",
+        element: <Login />,
       },
       {
-        path: '/products/all',
-        element: <AllProducts/>
+        path: "/products/all",
+        element: <AllProducts />,
       },
       {
-        path: '/products/men',
-        element: <MenProducts/>
+        path: "/products/men",
+        element: <MenProducts />,
       },
       {
-        path: '/products/women',
-        element: <WomenProducts/>
+        path: "/products/women",
+        element: <WomenProducts />,
       },
       {
-        path: '/admin/login',
-        element: <AdminLogin/>
+        path: "/admin/login",
+        element: <AdminLogin />,
       },
       {
-        path: '/admin/products',
-        element: <AdminProductsPanel/>
+        path: "/admin/products",
+        element: <AdminProductsPanel />,
       },
       {
         path: "*",
-        element: <NotFoundPage/>,
+        element: <NotFoundPage />,
       },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 );
