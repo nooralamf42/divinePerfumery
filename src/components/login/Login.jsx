@@ -1,16 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import appwriteAuthService from "../../appwrite/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { login } from "../../store/appSlice";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { ADMIN_EMAIL } from "../../envConfig";
 
 function Login({ header = "Log in to your account" }) {
   const { handleSubmit, register } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isAdmin = useSelector((state) => state.isAdmin);
   const submit = (formData) => {
     appwriteAuthService
       .login(formData)
@@ -20,7 +20,7 @@ function Login({ header = "Log in to your account" }) {
         toast("You are logged in successfully");
       })
       .then(()=>{
-        isAdmin ? navigate("/admin/products") : navigate("/products/all")
+        formData.email === ADMIN_EMAIL ? navigate("/admin/products") : navigate("/products/all")
         console.log(isAdmin)
       })
       .catch((error) => toast(error.message));

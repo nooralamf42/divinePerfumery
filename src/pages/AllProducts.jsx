@@ -3,7 +3,7 @@ import { Container, Products } from '../components'
 import { useSelector } from 'react-redux'
 
 function AllProducts() {
-  const products = useSelector(state=>state.allProducts).documents
+  const products = useSelector(state=>state.allProducts)
   return (
     <section>
       <Container>

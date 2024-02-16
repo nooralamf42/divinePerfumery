@@ -5,9 +5,19 @@ import Button from "../button/Button";
 import { useCallback } from "react";
 import appwriteService from "../../appwrite/config";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
 
 function AddProductsForm() {
-  const { register, watch, handleSubmit, setValue } = useForm();
+  const oldProduct = useSelector(state=> state.selectedProduct)
+  const { register, watch, handleSubmit, setValue } = useForm(oldProduct &&{defaultValues: {
+    name : oldProduct?.name || '',
+    description : oldProduct?.description || '',
+    category : oldProduct?.category || '',
+    featuredImage : oldProduct?.images[0] || '',
+    images : oldProduct?.images.splice(1) || '',
+    price : oldProduct?.price[0] || '',
+    discount : oldProduct?.price[1] || '',
+  }});
   const submit = (formData) => {
     const price =
       formData.discount !== ""

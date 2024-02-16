@@ -16,7 +16,7 @@ function App() {
     })
 
     appwriteService.getAllProducts().then(products=>{
-      dispatch(setProducts(products))
+      dispatch(setProducts(products.documents))
     }).catch(error => toast(error))
   }, [])
   return (

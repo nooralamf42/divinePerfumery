@@ -7,7 +7,8 @@ const AppSlice = createSlice({
         isAdmin : false,
         cartProducts : [],
         allProducts : [],
-        userData : {}
+        userData : {},
+        selectedProduct : false
     },
     name : 'AppSlice',
     reducers : {
@@ -32,9 +33,13 @@ const AppSlice = createSlice({
 
         addProduct : (state, actions)=>{
             state.allProducts = [...state.allProducts, actions.payload]
+        },
+
+        setSelectedProduct : (state, actions) =>{
+            state.selectedProduct = actions.payload
         }
     }
 })
-export const {login, logout, addProduct, setProducts} = AppSlice.actions
+export const {login, logout, addProduct, setProducts, setSelectedProduct} = AppSlice.actions
 
 export default AppSlice.reducer
