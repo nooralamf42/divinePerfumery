@@ -34,15 +34,11 @@ function Home() {
               />
             </div>
             <div className="w-[70%] text-right box-border pt-12">
-              <h1 className="text-[10vw] drop-shadow-2xl hover:scale-105 duration-200 hover:-rotate-1 leading-none hover:cursor-pointer">
-                DIVINE
+              <h1 className="text-2xl sm:text-[10vw] drop-shadow-2xl hover:scale-105 duration-200 hover:-rotate-1 leading-none hover:cursor-pointer">
+                DIVINE PERFUMERS
               </h1>
-              <h1 className="text-[5vw] font-extralight drop-shadow-2xl  text-gray-600 leading-none">
-                Perfumery
-              </h1>
-              <p className="pt-5 text-xl">
-                "From Perfume City to DIVINE Aromas: Elevate Your Scent
-                Experience!"
+              <p className="pt-5 sm:text-xl">
+                "Perfumes are the feelings of flowers"
               </p>
             </div>
           </div>
