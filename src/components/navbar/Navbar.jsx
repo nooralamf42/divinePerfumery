@@ -33,7 +33,8 @@ function Navbar() {
             >
               Shop
             </NavLink>
-            <NavLink
+
+            {/* <NavLink
               to="/products/men"
               className={({ isActive }) =>
                 isActive && "text-green-500 before:border-b-2"
@@ -46,7 +47,8 @@ function Navbar() {
               className={({ isActive }) => isActive && "text-green-500"}
             >
               Women
-            </NavLink>
+            </NavLink> */}
+            
           </div>
           <div className="flex justify-between items-center gap-3">
             {isLogged ? (

@@ -32,8 +32,23 @@ function Card({
       dispatch(deleteProduct($id))
     }).catch(error => toast(error))
   }
+
+  const truncateString = (str, maxLength) =>{
+    if (str.length <= maxLength) {
+      return str;
+    } else {
+      return str.substring(0, maxLength) + '...';
+    }
+  }
+
+  const whatsAppHandler = () =>{
+    const message = 'I want to buy ' + name + ' 6ml'
+    const url = `https://api.whatsapp.com/send?phone=918445678654&text=${message}`
+    window.location.href = url
+  }
+
   return (
-    <div className="w-[250px] rounded-2xl border shadow-md overflow-hidden relative mt-4" onClick={()=>navigate()}>
+    <div className="w-[250px] rounded-2xl border shadow-md overflow-hidden relative mt-4" onClick={whatsAppHandler}>
       <div className="h-[300px] bg-black overflow-hidden">
         <img
           src={images[0]}
@@ -48,17 +63,17 @@ function Card({
         </div>
       )}
       <div className="p-4 space-y-2">
-        <h1 className="text-2xl">{name}</h1>
+        <h1 className="text-2xl">{name}</h1>  
         {
-            description && <p>{description}</p>
+            description && <p>{!description.length>50 ? description : truncateString(description, 50)}</p>
         }
         <p className={`${price.length<1 ? "hidden" : "text-2xl"}`}>
           {price.length==1 ? (
-            `₹ ${price[0]}`
+            `₹ ${price[0]}/ 6ml`
           ) : (
             <>
               <span className="line-through mr-2 text-lg">₹ {price[0]}</span>
-              <span className="font-semibold">₹{price[1]}</span>
+              <span className="font-semibold">₹{price[1]}/ 6ml</span>
             </>
           )}
         </p>

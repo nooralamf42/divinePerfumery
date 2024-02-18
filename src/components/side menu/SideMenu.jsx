@@ -26,7 +26,7 @@ function SideMenu({ className, isLogged=false}) {
             >
               Shop
             </NavLink>
-            <NavLink
+            {/* <NavLink
               to="/products/men"
               className={({ isActive }) =>
                 isActive && "text-green-500 before:border-b-2"
@@ -39,7 +39,7 @@ function SideMenu({ className, isLogged=false}) {
               className={({ isActive }) => isActive && "text-green-500"}
             >
               Women
-            </NavLink>
+            </NavLink> */}
           </div>
           <div className="text-center border-t-2 pt-4">
             {
