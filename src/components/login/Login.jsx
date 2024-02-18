@@ -20,7 +20,7 @@ function Login({ header = "Log in to your account" }) {
         toast("You are logged in successfully");
       })
       .then(()=>{
-        formData.email === ADMIN_EMAIL ? navigate("/admin/products") : navigate("/products/all")
+        formData.email === ADMIN_EMAIL ? navigate("/products/admin") : navigate("/products/all")
         console.log(isAdmin)
       })
       .catch((error) => toast(error.message));
