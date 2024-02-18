@@ -52,7 +52,7 @@ function Home() {
       </section>
       <div className="flex flex-col overflow-hidden">
       <ContainerScroll
-        products={[{name: 'oudh', image: 'https://www.liveabout.com/thmb/IiU1PYZqvrBo1lL7E49jOSY1uB0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-900954436-56412d7f11084ed3a6dac591a9f9dedd.jpeg', $id: 'hello'}]}
+        products={featuredProducts}
         titleComponent={
           <>
             <h1 className="md:text-4xl font-semibold text-black dark:text-white">

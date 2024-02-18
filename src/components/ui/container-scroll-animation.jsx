@@ -103,7 +103,7 @@ export const Card = ({
               {user.isNew}
             </div> */}
             <img
-              src={product.image}
+              src={product.images[0]}
               className="rounded-tr-md rounded-tl-md text-sm "
               alt="thumbnail"
             />
