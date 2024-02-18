@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { deleteProduct, setSelectedProduct } from "../../store/appSlice";
 import appwriteService from "../../appwrite/config";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 function Card({
   images=[],
@@ -18,6 +19,7 @@ function Card({
   $id = null
 }) {
 
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const editHandler = (e) =>{
     document.getElementById('addProductDialog').show()
@@ -31,7 +33,7 @@ function Card({
     }).catch(error => toast(error))
   }
   return (
-    <div className="w-[250px] rounded-2xl border shadow-md overflow-hidden relative mt-4">
+    <div className="w-[250px] rounded-2xl border shadow-md overflow-hidden relative mt-4" onClick={()=>navigate()}>
       <div className="h-[300px] bg-black overflow-hidden">
         <img
           src={images[0]}

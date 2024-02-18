@@ -29,6 +29,7 @@ function AddProductsForm() {
   const options = ['all', 'oudh', 'men']
   const catergoryHandler = (selectedValue) =>{
     let preCategoryValue = getValues('category')
+    console.log(preCategoryValue)
     let categoryValue 
     if(!preCategoryValue.includes(selectedValue))
       if(preCategoryValue!=='')

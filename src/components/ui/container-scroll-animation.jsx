@@ -1,8 +1,9 @@
 
 import React, { useRef } from "react";
 import { useScroll, useTransform, motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 export const ContainerScroll = ({
-  users,
+  products,
   titleComponent,
 }) => {
   const containerRef = useRef(null);
@@ -26,27 +27,29 @@ export const ContainerScroll = ({
     return isMobile ? [0.7, 0.9] : [1.05, 1];
   };
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [60, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
   const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const translate2 = useTransform(scrollYProgress, [100, 1], [0, -100]);
 
   return (
     <div
-      className="h-[80rem] flex items-center justify-center relative p-20"
+      className="h-[80rem] flex items-center justify-center relative p-4 sm:p-20"
       ref={containerRef}
     >
       <div
-        className="py-40 w-full relative"
+        className="w-full relative"
         style={{
           perspective: "1000px",
+          padding: '40px'
         }}
       >
-        <Header translate={translate} titleComponent={titleComponent} />
+        <Header translate={translate2} titleComponent={titleComponent} />
         <Card
           rotate={rotate}
           translate={translate}
           scale={scale}
-          users={users}
+          products={products}
         />
       </div>
     </div>
@@ -70,8 +73,9 @@ export const Card = ({
   rotate,
   scale,
   translate,
-  users,
+  products,
 }) => {
+  const navigate = useNavigate()
   return (
     <motion.div
       style={{
@@ -83,8 +87,9 @@ export const Card = ({
       className="max-w-5xl -mt-12 mx-auto h-[30rem] md:h-[40rem] w-full border-4 border-[#6C6C6C] p-6 bg-[#222222] rounded-[30px] shadow-2xl"
     >
       <div className="bg-gray-100 h-full w-full rounded-2xl grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 overflow-hidden p-4">
-        {users.map((user, idx) => (
-          <motion.div
+        {products.map((product, idx) => (
+          <motion.div onClick={()=>navigate(`/product/${product.$id}`)}
+            
             key={`user-${idx}`}
             className="bg-white rounded-md cursor-pointer relative"
             style={{ translateY: translate }}
@@ -93,17 +98,18 @@ export const Card = ({
                 "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
             }}
           >
-            <div className="absolute top-2 right-2 rounded-full text-xs font-bold bg-white px-2 py-1">
-              {user.badge}
-            </div>
+            
+            {/* <div className="absolute top-2 right-2 rounded-full text-xs font-bold bg-white px-2 py-1">
+              {user.isNew}
+            </div> */}
             <img
-              src={user.image}
+              src={product.image}
               className="rounded-tr-md rounded-tl-md text-sm "
               alt="thumbnail"
             />
             <div className="p-4">
-              <h1 className="font-semibold text-sm ">{user.name}</h1>
-              <h2 className=" text-gray-500 text-xs ">{user.designation}</h2>
+              <h1 className="font-semibold text-sm ">{product.name}</h1>
+              {/* <h2 className=" text-gray-500 text-xs ">{product.designation}</h2> */}
             </div>
           </motion.div>
         ))}
