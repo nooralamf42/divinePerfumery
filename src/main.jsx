@@ -41,11 +41,11 @@ const router = createBrowserRouter([
         element: <WomenProducts />,
       },
       {
-        path: "/admin/login",
+        path: "/login/admin",
         element: <AdminLogin />,
       },
       {
-        path: "/admin/products",
+        path: "/products/admin",
         element: <AdminProductsPanel />,
       },
       {

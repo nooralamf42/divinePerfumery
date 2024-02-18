@@ -34,10 +34,10 @@ function Home() {
               />
             </div>
             <div className="w-[70%] text-right box-border pt-12">
-              <h1 className="text-2xl sm:text-[10vw] drop-shadow-2xl hover:scale-105 duration-200 hover:-rotate-1 leading-none hover:cursor-pointer">
+              <h1 className="text-3xl sm:text-4xl md:text-7xl drop-shadow-2xl hover:scale-105 duration-200 hover:-rotate-1 leading-none hover:cursor-pointer">
                 DIVINE PERFUMERS
               </h1>
-              <p className="pt-5 sm:text-xl">
+              <p className="sm:pt-5 text-sm sm:text-xl">
                 "Perfumes are the feelings of flowers"
               </p>
             </div>
@@ -46,9 +46,9 @@ function Home() {
       </section>
 
       <section>
+            <h1 className="text-white bg-gray-600 py-2 text-xl sm:text-3xl md:text-4xl text-center uppercase">featured products</h1>
         <Container>
           <div className="text-center">
-            <h1 className="text-4xl">SHOP BY CATEGORY</h1>
             <Products products={categories}/>
           </div>
         </Container>

@@ -2,25 +2,34 @@ import { MdModeEdit } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setSelectedProduct } from "../../store/appSlice";
+import { deleteProduct, setSelectedProduct } from "../../store/appSlice";
+import appwriteService from "../../appwrite/config";
+import { toast } from "sonner";
 
-function Card(props) {
-  const {
-    images = [],
-    name,
-    description = null,
-    price = [],
-    isNew = false,
-    className = "",
-    admin = false,
-  } = props;
-  const dispatch = useDispatch();
-  const editHandler = (e) => {
-    document.getElementById("addProductDialog").show();
-    // dispatch(setSelectedProduct(props));
-  };
+function Card({
+  images=[],
+  name,
+  description=null,
+  price = [],
+  isNew = false,
+  className = "",
+  admin = false,
+  category = null,
+  $id = null
+}) {
 
-  const deleteHandler = () => {};
+  const dispatch = useDispatch()
+  const editHandler = (e) =>{
+    document.getElementById('addProductDialog').show()
+    dispatch(setSelectedProduct({name, images, description, price, category, slug: $id}))
+  }
+
+  const deleteHandler  = () =>{
+    appwriteService.deleteProduct($id).then(()=>{
+      toast(`${name} product deleted`)
+      dispatch(deleteProduct($id))
+    }).catch(error => toast(error))
+  }
   return (
     <div className="w-[250px] rounded-2xl border shadow-md overflow-hidden relative mt-4">
       <div className="h-[300px] bg-black overflow-hidden">
@@ -38,9 +47,11 @@ function Card(props) {
       )}
       <div className="p-4 space-y-2">
         <h1 className="text-2xl">{name}</h1>
-        {description && <p>{description}</p>}
-        <p className={`${price.length < 1 ? "hidden" : "text-2xl"}`}>
-          {price.length == 1 ? (
+        {
+            description && <p>{description}</p>
+        }
+        <p className={`${price.length<1 ? "hidden" : "text-2xl"}`}>
+          {price.length==1 ? (
             `₹ ${price[0]}`
           ) : (
             <>
@@ -51,17 +62,11 @@ function Card(props) {
         </p>
       </div>
 
-      <div className={!admin && "hidden"}>
-        <div
-          onClick={deleteHandler}
-          className="absolute bottom-0 mb-12 border p-2 rounded-full hover:scale-105 cursor-pointer right-2"
-        >
+      <div className={!admin && 'hidden'}>
+        <div onClick={deleteHandler} className="absolute bottom-0 mb-12 border p-2 rounded-full hover:scale-105 cursor-pointer right-2">
           <AiOutlineClose />
         </div>
-        <button
-          onClick={editHandler}
-          className="absolute bottom-0 right-0 m-4 shadow-2xl hover:scale-110 cursor-pointer"
-        >
+        <button onClick={editHandler} className="absolute bottom-0 right-0 m-4 shadow-2xl hover:scale-110 cursor-pointer">
           <MdModeEdit />
         </button>
       </div>

@@ -35,11 +35,19 @@ const AppSlice = createSlice({
             state.allProducts = [...state.allProducts, actions.payload]
         },
 
+        deleteProduct : (state, actions)=>{
+            state.allProducts = state.allProducts.filter(product=>product.$id!==actions.payload)
+        },
+
+        updateProducts : (state, actions)=>{
+            state.allProducts = setProducts.allProducts.map(product=>product.$id === actions.payload.$id ? actions.payload.data : product)
+        },
+
         setSelectedProduct : (state, actions) =>{
             state.selectedProduct = actions.payload
         }
     }
 })
-export const {login, logout, addProduct, setProducts, setSelectedProduct} = AppSlice.actions
+export const {login, logout, addProduct, setProducts, setSelectedProduct, updateProducts, deleteProduct} = AppSlice.actions
 
 export default AppSlice.reducer
