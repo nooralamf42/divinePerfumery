@@ -1,5 +1,6 @@
 import { Client, Account, ID} from "appwrite";
 import { APPWRITE_PROJECT_ID, APPWRITE_PROJECT_URL } from "../envConfig";
+import appwriteService from "./config";
 
 class Auth{
     client = new Client
@@ -22,15 +23,15 @@ class Auth{
 
     async createUser ({email, password, name}) {
        try {
-        const user = this.account.create(
+        const user = await this.account.create(
             ID.unique(),
             email,
             password,
             name
         )
         if(user){
-            await this.login(email, password)
-            return user
+            await appwriteService.createCart(user.$id)
+            return await this.login(email, password)
         }
        } catch (error) {
             console.log("error while creating user : ", error)

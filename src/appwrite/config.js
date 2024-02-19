@@ -1,9 +1,10 @@
 import { Client, Databases } from "appwrite";
 import {
-  APPWRITE_COLLECTION_ID,
+  APPWRITE_PRODUCTS_COLLECTION_ID ,
   APPWRITE_DATABASE_ID,
   APPWRITE_PROJECT_ID,
   APPWRITE_PROJECT_URL,
+  APPWRITE_CART_COLLECTION_ID,
 } from "../envConfig";
 
 class Config {
@@ -22,7 +23,7 @@ class Config {
     try {
       return await this.database.createDocument(
         APPWRITE_DATABASE_ID,
-        APPWRITE_COLLECTION_ID,
+        APPWRITE_PRODUCTS_COLLECTION_ID ,
         slug,
         data
       );
@@ -35,7 +36,7 @@ class Config {
     try {
       return await this.database.updateDocument(
         APPWRITE_DATABASE_ID,
-        APPWRITE_COLLECTION_ID,
+        APPWRITE_PRODUCTS_COLLECTION_ID ,
         slug,
         data
       );
@@ -48,7 +49,7 @@ class Config {
     try {
       return await this.database.deleteDocument(
         APPWRITE_DATABASE_ID,
-        APPWRITE_COLLECTION_ID,
+        APPWRITE_PRODUCTS_COLLECTION_ID ,
         slug
       );
     } catch (error) {
@@ -60,7 +61,7 @@ class Config {
     try {
       return await this.database.listDocuments(
         APPWRITE_DATABASE_ID,
-        APPWRITE_COLLECTION_ID
+        APPWRITE_PRODUCTS_COLLECTION_ID 
       );
     } catch (error) {
       console.log("error while getting products : ", error);
@@ -71,13 +72,28 @@ class Config {
     try {
       return await this.database.getDocument(
         APPWRITE_DATABASE_ID,
-        APPWRITE_COLLECTION_ID,
+        APPWRITE_PRODUCTS_COLLECTION_ID ,
         slug
       );
     } catch (error) {
       console.log("error while getting product : ", error);
     }
   }
+
+  async createCart(slug) {
+    try {
+      return await this.database.createDocument(
+        APPWRITE_DATABASE_ID,
+        APPWRITE_CART_COLLECTION_ID,
+        slug,
+        {}
+      );
+    } catch (error) {
+      console.log("error while creating user cart : ", error);
+      // throw error
+    }
+  }
+
 }
 
 let appwriteService = new Config();

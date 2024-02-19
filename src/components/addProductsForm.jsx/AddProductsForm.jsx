@@ -12,9 +12,10 @@ import { addProduct, setSelectedProduct, updateProducts } from "../../store/appS
 function AddProductsForm() {
  
   const dispatch = useDispatch();
-  const oldProduct = useSelector((state) => state.selectedProduct);
-  const { register, watch, handleSubmit, setValue, getValues} = useForm(oldProduct &&{
-    values: {
+  let oldProduct = useSelector((state) => state.selectedProduct);
+  console.log('add products from got loaded!')
+  const { register, watch, handleSubmit, setValue, getValues} = useForm(oldProduct!== null && {
+  values: {
       name: oldProduct?.name || "",
       description: oldProduct?.description || "",
       category: String(oldProduct?.category) || "",
@@ -29,7 +30,6 @@ function AddProductsForm() {
   const options = ['all', 'oudh', 'men']
   const catergoryHandler = (selectedValue) =>{
     let preCategoryValue = getValues('category')
-    console.log(preCategoryValue)
     let categoryValue 
     if(!preCategoryValue.includes(selectedValue))
       if(preCategoryValue!=='')
@@ -39,6 +39,7 @@ function AddProductsForm() {
     else
       categoryValue = preCategoryValue
     setValue('category', categoryValue)
+    console.log(categoryValue, typeof categoryValue, 'cagjdkasfdhfjkshf')
   }
 
   const submit = (formData) => {
@@ -58,11 +59,11 @@ function AddProductsForm() {
     formData.category = formData.category.includes(',') ? formData.category.split(',') : formData.category === '' ? [] : [formData.category]
     const data = { ...formData, price, images };
 
+    // const newProduct = {...oldProduct, ...data}
     if (oldProduct) {
       appwriteService
         .updateProduct(data, slug)
         .then((product) => {
-          console.log(product);
           document.getElementById("addProductDialog").close();
           toast("Product updated successfully");
           dispatch(updateProducts({ id: slug, updatedProduct: product }));
@@ -100,7 +101,7 @@ function AddProductsForm() {
     <Container>
       <form
         onSubmit={handleSubmit(submit)}
-        className="flex flex-col gap-2 bg-slate-200 px-10 py-20"
+        className="flex flex-col gap-2 bg-slate-200 px-10 py-20 h-screen"
       >
         <input
           className="py-1 px-2 rounded-lg"
@@ -171,7 +172,7 @@ function AddProductsForm() {
               options.map(option=><option onClick={(e)=>catergoryHandler(e.target.value)} value={option} key={option}>{option.toUpperCase()}</option>)
             }
           </select>
-          <button onClick={()=>setValue('category', '')} className="top-0 bottom-0 absolute right-16 mr-2">
+          <button type="button" onClick={()=>setValue('category', '')} className="top-0 bottom-0 absolute right-16 mr-2">
             <AiFillCloseCircle size={25}/>
           </button>
         </div>

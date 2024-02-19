@@ -88,7 +88,7 @@ export const Card = ({
     >
       <div className="bg-gray-100 h-full w-full rounded-2xl grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 overflow-hidden p-4">
         {products.map((product, idx) => (
-          <motion.div onClick={()=>navigate(`/product/${product.$id}`)}
+          <motion.div 
             
             key={`user-${idx}`}
             className="bg-white rounded-md cursor-pointer relative"

@@ -13,7 +13,7 @@ import {
   WomenProducts,
 } from "./pages";
 import { Provider } from "react-redux";
-import store from './store/store.js'
+import store from "./store/store.js";
 
 const router = createBrowserRouter([
   {

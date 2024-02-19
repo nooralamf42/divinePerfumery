@@ -8,7 +8,7 @@ const AppSlice = createSlice({
         cartProducts : [],
         allProducts : [],
         userData : {},
-        selectedProduct : false
+        selectedProduct : null
     },
     name : 'AppSlice',
     reducers : {
@@ -40,7 +40,7 @@ const AppSlice = createSlice({
         },
 
         updateProducts : (state, actions)=>{
-            state.allProducts = setProducts.allProducts.map(product=>product.$id === actions.payload.$id ? actions.payload.updatedProduct : product)
+            state.allProducts = state.allProducts.map(product=>product.$id === actions.payload.$id ? actions.payload.updatedProduct : product)
         },
 
         setSelectedProduct : (state, actions) =>{

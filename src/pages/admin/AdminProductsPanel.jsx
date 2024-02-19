@@ -9,7 +9,6 @@ function AdminProductsPanel() {
   };
 
   const products = useSelector((state) => state.allProducts);
-
   return (
     <section>
       <Container>
@@ -18,8 +17,8 @@ function AdminProductsPanel() {
           <AddProductsForm />
         </Dialog>
         <Button
-          name={"Add New Product"}
-          className={"fixed bottom-0 right-0 m-12"}
+          name={"+"}
+          className={"fixed px-2 py-2 bottom-12 left-0 m-5"}
           onClick={openDialog}
         />
       </Container>
