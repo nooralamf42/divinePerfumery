@@ -5,15 +5,19 @@ import { login } from '../../store/appSlice';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import appwriteService from '../../appwrite/config';
+
 function Signup() {
     const { handleSubmit, register } = useForm();
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const submit = (formData) => {
-      appwriteAuthService.createUser({...formData}).then(user=>{
+      appwriteAuthService.createUser(formData).then(user=>{
         dispatch(login(user))
         toast("Account created successfully")
-        appwriteService.createCart()
+        appwriteService.createCart(user.userId).catch(error=>{
+          console.log(error)
+          throw error
+        })
         navigate('/products/all')
       }).catch(error=>console.log(error))
     };

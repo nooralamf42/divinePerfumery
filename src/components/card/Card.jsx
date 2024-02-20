@@ -3,8 +3,8 @@ import { BiCartAdd } from "react-icons/bi";
 import { MdModeEdit } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { deleteProduct, setSelectedProduct } from "../../store/appSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, deleteProduct, setSelectedProduct } from "../../store/appSlice";
 import appwriteService from "../../appwrite/config";
 import { toast } from "sonner";
 import {
@@ -29,6 +29,7 @@ function Card({
   admin = false,
   category = null,
   $id = null,
+  userId = null,
 }) {
   const dispatch = useDispatch();
   const editHandler = (e) => {
@@ -45,8 +46,19 @@ function Card({
     );
   };
 
+  
+  
+  let cartProducts = useSelector(state=>state.cartProducts)
   const cartHandler = () => {
-    appwriteService.createCart("hiii");
+    let object = {}
+    object.cartItems = cartProducts.cartItems 
+    object.purchasedItems = cartProducts.purchasedtItems 
+    object.comments = cartProducts.comments 
+    let cartItems = [...object.cartItems, {productId: $id, quantity: 1}]
+    appwriteService.addToCart(object, cartItems, userId).then(()=>{
+      dispatch(addToCart({productId : $id, quantity: 1}))
+      toast(name, "added in cart successfully")
+    }).catch(error => console.log(error))
   };
 
   const deleteHandler = () => {
@@ -68,12 +80,13 @@ function Card({
   };
 
   const whatsAppHandler = () => {
-    // if (!admin) {
-    //   const message = "I want to buy " + name + " 6ml";
-    //   const url = `https://api.whatsapp.com/send?phone=918445678654&text=${message}`;
-    //   window.open(url, "_blank");
-    // }
+    if (!admin) {
+      const message = "I want to buy " + name;
+      const url = `https://api.whatsapp.com/send?phone=918445678654&text=${message}`;
+      window.open(url, "_blank");
+    }
   };
+
 
   return (
     <div
@@ -104,11 +117,11 @@ function Card({
         )}
         <p className={`${price.length < 1 ? "hidden" : "text-2xl"}`}>
           {price.length == 1 ? (
-            `₹ ${price[0]}/ 6ml`
+            `₹ ${price[0]}`
           ) : (
             <>
               <span className="line-through mr-2 text-lg">₹ {price[0]}</span>
-              <span className="font-semibold">₹{price[1]}/ 6ml</span>
+              <span className="font-semibold">₹{price[1]}</span>
             </>
           )}
         </p>
@@ -120,7 +133,9 @@ function Card({
           className="absolute bottom-0 mb-12 border p-1.5 flex rounded-full hover:scale-105 cursor-pointer right-2"
         >
           <AlertDialog>
-            <AlertDialogTrigger className=''><AiOutlineClose/></AlertDialogTrigger>
+            <AlertDialogTrigger className="">
+              <AiOutlineClose />
+            </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -146,6 +161,7 @@ function Card({
         </button>
       </div>
       <button
+        hidden={!admin}
         onClick={cartHandler}
         className="absolute m-3 right-0 top-0 shadow-[inset_0_0_0_2px_#616467] p-1.5 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200
           "

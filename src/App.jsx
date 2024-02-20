@@ -12,7 +12,9 @@ function App() {
   const dispatch = useDispatch()
   useEffect(()=>{
     appwriteAuthService.getLogged().then(userData=>{
-      dispatch(login(userData))
+      appwriteService.getCart(userData.$id).then((userCart)=>{
+        dispatch(login({userData, userCart}))
+      })
     })
 
     appwriteService.getAllProducts().then(products=>{

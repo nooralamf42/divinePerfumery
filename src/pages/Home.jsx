@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {Card, Container, Hero, Products } from "../components";
 import { ContainerScroll } from "../components/ui/container-scroll-animation";
 import { nanoid } from "@reduxjs/toolkit";
 import featuredProducts from "../images/featuredImages/featuredImages";
+import { useSelector } from "react-redux";
 
 
 const heroImage =
@@ -11,6 +12,7 @@ const heroImage =
 const featuredProductText = ['featured products', 'featured products','featured products','featured products','featured products','featured products',]
 
 function Home() {
+  const products = useSelector(state=>state.allProducts)
   return (
     <>
       <section>
@@ -46,13 +48,13 @@ function Home() {
           </div>
         <Container>
           <div className="text-center">
-            <Products products={featuredProducts}/>
+            <Products products={products}/>
           </div>
         </Container>
       </section>
       <div className="flex flex-col overflow-hidden">
       <ContainerScroll
-        products={featuredProducts}
+        products={products}
         titleComponent={
           <>
             <h1 className="md:text-4xl font-semibold text-black dark:text-white">

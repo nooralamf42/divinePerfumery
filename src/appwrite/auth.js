@@ -30,9 +30,10 @@ class Auth{
             name
         )
         if(user){
-            await appwriteService.createCart(user.$id)
-            return await this.login(email, password)
+            const loggedUser =  await this.login({email, password})
+            return loggedUser
         }
+        return user
        } catch (error) {
             console.log("error while creating user : ", error)
        }

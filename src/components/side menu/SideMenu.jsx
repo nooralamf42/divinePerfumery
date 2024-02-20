@@ -8,7 +8,7 @@ import {
 import { NavLink } from "react-router-dom";
 import Button from "../button/Button";
 
-function SideMenu({ className, isLogged=false}) {
+function SideMenu({ className, isLogged=false, logoutHandler}) {
   return (
     <div className={`${className}`}>
       <Sheet>
@@ -43,7 +43,7 @@ function SideMenu({ className, isLogged=false}) {
           </div>
           <div className="text-center border-t-2 pt-4">
             {
-                isLogged ? <Button className='text-[1.1rem]' name={"Logout"} /> : <Button link={"/login"} className='text-[1.1rem]' name={"Login"} />
+                isLogged ? <Button onClick={()=>logoutHandler()} className='text-[1.1rem]' name={"Logout"} /> : <Button link={"/login"} className='text-[1.1rem]' name={"Login"} />
              }
              <br />
             <Button link={"/signup"} className={`text-[1.1rem] mt-2 ${isLogged && 'hidden'}`} name={"Signup"} />

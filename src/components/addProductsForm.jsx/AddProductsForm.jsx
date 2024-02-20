@@ -13,7 +13,7 @@ function AddProductsForm() {
  
   const dispatch = useDispatch();
   let oldProduct = useSelector((state) => state.selectedProduct);
-  console.log('add products from got loaded!')
+  // console.log(oldProduct?.price)
   const { register, watch, handleSubmit, setValue, getValues} = useForm(oldProduct!== null && {
   values: {
       name: oldProduct?.name || "",
@@ -101,7 +101,7 @@ function AddProductsForm() {
     <Container>
       <form
         onSubmit={handleSubmit(submit)}
-        className="flex flex-col gap-2 bg-slate-200 px-10 py-20 h-screen"
+      className="flex flex-col gap-2 bg-slate-200 px-10 py-20 h-screen"
       >
         <input
           className="py-1 px-2 rounded-lg"
@@ -141,7 +141,7 @@ function AddProductsForm() {
           className="py-1 px-2 rounded-lg"
           required
           {...register("price", { required: true })}
-          type="number"
+          type="text"
           min={10}
           placeholder="price"
         />
@@ -149,7 +149,7 @@ function AddProductsForm() {
         <input
           className="py-1 px-2 rounded-lg"
           {...register("discount")}
-          type="number"
+          type="text"
           placeholder=" discount"
           min={10}
         />

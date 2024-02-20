@@ -6,6 +6,7 @@ import { login } from "../../store/appSlice";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { ADMIN_EMAIL } from "../../envConfig";
+import appwriteService from "../../appwrite/config";
 
 function Login({ header = "Log in to your account" }) {
   const { handleSubmit, register } = useForm();
@@ -15,11 +16,12 @@ function Login({ header = "Log in to your account" }) {
     appwriteAuthService
       .login(formData)
       .then((userData) => {
-        appwriteAuthService.login(userData);
-        dispatch(login(userData));
-        toast("You are logged in successfully");
+          appwriteService.getCart(userData.userId).then((userCart)=>{
+            dispatch(login({userData, userCart}))
+          })
       })
       .then(()=>{
+        toast("You are logged in successfully");
         formData.email === ADMIN_EMAIL ? navigate("/products/admin") : navigate("/products/all")
       })
       .catch((error) => toast(error.message));

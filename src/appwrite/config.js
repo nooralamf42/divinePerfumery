@@ -1,6 +1,6 @@
 import { Client, Databases } from "appwrite";
 import {
-  APPWRITE_PRODUCTS_COLLECTION_ID ,
+  APPWRITE_PRODUCTS_COLLECTION_ID,
   APPWRITE_DATABASE_ID,
   APPWRITE_PROJECT_ID,
   APPWRITE_PROJECT_URL,
@@ -23,7 +23,7 @@ class Config {
     try {
       return await this.database.createDocument(
         APPWRITE_DATABASE_ID,
-        APPWRITE_PRODUCTS_COLLECTION_ID ,
+        APPWRITE_PRODUCTS_COLLECTION_ID,
         slug,
         data
       );
@@ -36,7 +36,7 @@ class Config {
     try {
       return await this.database.updateDocument(
         APPWRITE_DATABASE_ID,
-        APPWRITE_PRODUCTS_COLLECTION_ID ,
+        APPWRITE_PRODUCTS_COLLECTION_ID,
         slug,
         data
       );
@@ -49,7 +49,7 @@ class Config {
     try {
       return await this.database.deleteDocument(
         APPWRITE_DATABASE_ID,
-        APPWRITE_PRODUCTS_COLLECTION_ID ,
+        APPWRITE_PRODUCTS_COLLECTION_ID,
         slug
       );
     } catch (error) {
@@ -61,7 +61,7 @@ class Config {
     try {
       return await this.database.listDocuments(
         APPWRITE_DATABASE_ID,
-        APPWRITE_PRODUCTS_COLLECTION_ID 
+        APPWRITE_PRODUCTS_COLLECTION_ID
       );
     } catch (error) {
       console.log("error while getting products : ", error);
@@ -72,7 +72,7 @@ class Config {
     try {
       return await this.database.getDocument(
         APPWRITE_DATABASE_ID,
-        APPWRITE_PRODUCTS_COLLECTION_ID ,
+        APPWRITE_PRODUCTS_COLLECTION_ID,
         slug
       );
     } catch (error) {
@@ -86,14 +86,43 @@ class Config {
         APPWRITE_DATABASE_ID,
         APPWRITE_CART_COLLECTION_ID,
         slug,
-        {}
+        {
+          cartItems: [],
+          comments: [],
+          purchasedItems: [],
+        }
       );
     } catch (error) {
       console.log("error while creating user cart : ", error);
-      // throw error
     }
   }
 
+  async addToCart(object, cartItems, userID) {
+    try {
+      return await this.database.updateDocument(
+        APPWRITE_DATABASE_ID,
+        APPWRITE_CART_COLLECTION_ID,
+        userID,
+        {
+          ...object, cartItems
+        }
+      );
+    } catch (error) {
+      console.log("error while adding product in card : ", error);
+    }
+  }
+
+  async getCart(userID) {
+    try {
+      return await this.database.getDocument(
+        APPWRITE_DATABASE_ID,
+        APPWRITE_CART_COLLECTION_ID,
+        userID
+      );
+    } catch (error) {
+      console.log("error while adding product in card : ", error);
+    }
+  }
 }
 
 let appwriteService = new Config();

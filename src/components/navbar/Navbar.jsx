@@ -64,7 +64,7 @@ function Navbar() {
                 link="/login"
               />
             )}
-            <SideMenu className={"sm:hidden"} isLogged={isLogged} />
+            <SideMenu logoutHandler={logoutHandler} className={"sm:hidden"} isLogged={isLogged} />
             <NavCart value={0} />
           </div>
         </div>
