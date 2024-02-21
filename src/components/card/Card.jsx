@@ -139,7 +139,6 @@ function Card({
         </p>
         <Button
           name={"Buy Now"}
-          className={"bg-green-600 text-white"}
           onClick={whatsAppHandler}
         />
       </div>
