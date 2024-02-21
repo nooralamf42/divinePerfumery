@@ -4,7 +4,9 @@ import Container from "../container/Container";
 import { useSelector } from "react-redux";
 
 function Products({products, admin=false}) {
+  let cartItems = useSelector(state=>state.cartProducts)
   let user = useSelector((state) => state.userData);
+  console.log(cartItems)
   let userId;
   if (user.userId) userId = user.userId;
   else userId = user.$id;
@@ -12,7 +14,7 @@ function Products({products, admin=false}) {
     <Container>
       <div className="p-5 flex flex-wrap justify-center gap-8">
         {
-            products.length>0 ? products.map(product=><Card key={product.name} userId={userId} admin={admin} {...product} />) : <h1 className="pt-[20%] text-2xl">No products added</h1>
+            products.length>0 ? products.map(product=><Card key={product.name} cartItems={cartItems} userId={userId} admin={admin} {...product} />) : <h1 className="pt-[20%] text-2xl">No products added</h1>
         }
       </div>
     </Container>

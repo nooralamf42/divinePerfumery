@@ -17,6 +17,7 @@ function Login({ header = "Log in to your account" }) {
       .login(formData)
       .then((userData) => {
           appwriteService.getCart(userData.userId).then((userCart)=>{
+            userCart = userCart.cartItems.length>0 ? userCart.cartItems.map(cartItem=>JSON.parse(cartItem)) : []
             dispatch(login({userData, userCart}))
           })
       })

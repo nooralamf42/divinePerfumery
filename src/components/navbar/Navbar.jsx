@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "../container/Container";
 import Logo from "../logo/Logo";
 import { NavLink } from "react-router-dom";
@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import appwriteAuthService from "../../appwrite/auth";
 import { toast } from "sonner";
 import { logout } from "../../store/appSlice";
+import Cart from "../cart/Cart";
 
 function Navbar() {
   const isLogged = useSelector((state) => state.isLogged);
@@ -19,8 +20,10 @@ function Navbar() {
       dispatch(logout());
     }).catch(error=>toast(error.message))
   };
+  const [isCartClicked, setIsCartClicked] = useState(false)
   return (
     <nav className="py-5 border-b sticky top-0 bg-white z-20">
+      <Cart isCartClicked={isCartClicked} setIsCartClicked={setIsCartClicked}/>
       <Container>
         <div className="flex justify-between items-center gap-3">
           <Logo />
@@ -65,7 +68,7 @@ function Navbar() {
               />
             )}
             <SideMenu logoutHandler={logoutHandler} className={"sm:hidden"} isLogged={isLogged} />
-            <NavCart value={0} />
+            <NavCart setIsCartClicked = {setIsCartClicked}/>
           </div>
         </div>
       </Container>

@@ -12,7 +12,10 @@ function App() {
   const dispatch = useDispatch()
   useEffect(()=>{
     appwriteAuthService.getLogged().then(userData=>{
-      appwriteService.getCart(userData.$id).then((userCart)=>{
+      appwriteService.getCart(userData.$id).then((userItems)=>{
+        userData.userId = userData.$id
+        let userCart = userItems.cartItems
+        userCart = userCart.length>0 ? userCart.map(cart=>JSON.parse(cart)) : []
         dispatch(login({userData, userCart}))
       })
     })

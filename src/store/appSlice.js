@@ -16,7 +16,7 @@ const AppSlice = createSlice({
         login : (state, actions) =>{
             state.isLogged = true;
             state.userData = actions.payload.userData
-            state.cartProducts = actions.payload.userCart   
+            state.cartProducts = actions.payload.userCart  
             if(actions.payload.providerUid == ADMIN_EMAIL || actions.payload.email == ADMIN_EMAIL)
                 state.isAdmin = true;
         },
@@ -49,10 +49,15 @@ const AppSlice = createSlice({
         }, 
 
         addToCart: (state, actions)=>{
-            state.cartProducts = [state.cartProducts, ...actions.payload]
+            state.cartProducts = [...state.cartProducts, actions.payload]
+        },
+
+        removeFromCart : (state, actions) =>{
+            console.log(actions.payload)
+            state.cartProducts = state.cartProducts.filter(cartProduct => cartProduct.$id !== actions.payload)
         }
     }
 })
-export const {login, logout, addProduct, setProducts, setSelectedProduct, updateProducts, deleteProduct, addToCart} = AppSlice.actions
+export const {login, logout, addProduct, setProducts, setSelectedProduct, updateProducts, deleteProduct, addToCart, removeFromCart} = AppSlice.actions
 
 export default AppSlice.reducer

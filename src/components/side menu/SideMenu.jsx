@@ -45,8 +45,6 @@ function SideMenu({ className, isLogged=false, logoutHandler}) {
             {
                 isLogged ? <Button onClick={()=>logoutHandler()} className='text-[1.1rem]' name={"Logout"} /> : <Button link={"/login"} className='text-[1.1rem]' name={"Login"} />
              }
-             <br />
-            <Button link={"/signup"} className={`text-[1.1rem] mt-2 ${isLogged && 'hidden'}`} name={"Signup"} />
           </div>
           {/* </SheetHeader> */}
         </SheetContent>

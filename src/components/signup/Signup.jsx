@@ -12,9 +12,9 @@ function Signup() {
     const navigate = useNavigate()
     const submit = (formData) => {
       appwriteAuthService.createUser(formData).then(user=>{
-        dispatch(login(user))
-        toast("Account created successfully")
-        appwriteService.createCart(user.userId).catch(error=>{
+        appwriteService.createCart(user.userId).then(()=>{
+          dispatch(login({userData: user, userCart: []}))
+        }).catch(error=>{
           console.log(error)
           throw error
         })

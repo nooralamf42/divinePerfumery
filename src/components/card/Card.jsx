@@ -4,7 +4,11 @@ import { MdModeEdit } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, deleteProduct, setSelectedProduct } from "../../store/appSlice";
+import {
+  addToCart,
+  deleteProduct,
+  setSelectedProduct,
+} from "../../store/appSlice";
 import appwriteService from "../../appwrite/config";
 import { toast } from "sonner";
 import {
@@ -18,6 +22,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import Button from "../button/Button";
 
 function Card({
   images = [],
@@ -30,8 +35,17 @@ function Card({
   category = null,
   $id = null,
   userId = null,
+  cartItems = null,
 }) {
   const dispatch = useDispatch();
+
+  let inCart = false;
+  const isLogged = useSelector((state) => state.isLogged);
+
+  cartItems.map((cartItem) => {
+    if (cartItem.$id == $id) inCart = true;
+  });
+
   const editHandler = (e) => {
     document.getElementById("addProductDialog").show();
     dispatch(
@@ -46,19 +60,23 @@ function Card({
     );
   };
 
-  
-  
-  let cartProducts = useSelector(state=>state.cartProducts)
   const cartHandler = () => {
-    let object = {}
-    object.cartItems = cartProducts.cartItems 
-    object.purchasedItems = cartProducts.purchasedtItems 
-    object.comments = cartProducts.comments 
-    let cartItems = [...object.cartItems, {productId: $id, quantity: 1}]
-    appwriteService.addToCart(object, cartItems, userId).then(()=>{
-      dispatch(addToCart({productId : $id, quantity: 1}))
-      toast(name, "added in cart successfully")
-    }).catch(error => console.log(error))
+    let cartItem = { name, quantity: 1, price, description, images, $id };
+    if (inCart) toast(`${name} is already in cart`);
+    else {
+      if (isLogged) {
+        appwriteService
+          .addToCart(cartItems, cartItem, userId)
+          .then(() => {
+            dispatch(addToCart(cartItem));
+            toast(`${name} added in cart successfully`);
+          })
+          .catch((error) => console.log(error));
+      } else {
+        dispatch(addToCart(cartItem));
+        toast(`${name} added in cart successfully`);
+      }
+    }
   };
 
   const deleteHandler = () => {
@@ -80,19 +98,13 @@ function Card({
   };
 
   const whatsAppHandler = () => {
-    if (!admin) {
-      const message = "I want to buy " + name;
-      const url = `https://api.whatsapp.com/send?phone=918445678654&text=${message}`;
-      window.open(url, "_blank");
-    }
+    const message = "I want to buy " + name;
+    const url = `https://api.whatsapp.com/send?phone=918445678654&text=${message}`;
+    window.open(url, "_blank");
   };
 
-
   return (
-    <div
-      className="w-[250px] rounded-2xl border shadow-md overflow-hidden relative mt-4"
-      onClick={whatsAppHandler}
-    >
+    <div className="w-[250px] rounded-2xl border shadow-md overflow-hidden relative mt-4">
       <div className="h-[300px] bg-black overflow-hidden">
         <img
           src={images[0]}
@@ -125,6 +137,11 @@ function Card({
             </>
           )}
         </p>
+        <Button
+          name={"Buy Now"}
+          className={"bg-green-600 text-white"}
+          onClick={whatsAppHandler}
+        />
       </div>
 
       <div className={!admin && "hidden"}>
@@ -160,14 +177,14 @@ function Card({
           <MdModeEdit />
         </button>
       </div>
+
       <button
-        hidden={!admin}
+        // hidden={!admin}
         onClick={cartHandler}
         className="absolute m-3 right-0 top-0 shadow-[inset_0_0_0_2px_#616467] p-1.5 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200
           "
       >
-        <BiCartAdd size={22} />
-        {/* <BsCartCheck /> */}
+        {!inCart ? <BiCartAdd size={22} /> : <BsCartCheck size={22} />}
       </button>
     </div>
   );

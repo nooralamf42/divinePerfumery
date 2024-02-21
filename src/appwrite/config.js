@@ -88,8 +88,6 @@ class Config {
         slug,
         {
           cartItems: [],
-          comments: [],
-          purchasedItems: [],
         }
       );
     } catch (error) {
@@ -97,18 +95,46 @@ class Config {
     }
   }
 
-  async addToCart(object, cartItems, userID) {
+  async addToCart(cartItems, cartItem, userID) {
     try {
       return await this.database.updateDocument(
         APPWRITE_DATABASE_ID,
         APPWRITE_CART_COLLECTION_ID,
         userID,
         {
-          ...object, cartItems
+          cartItems:
+            cartItems.length > 0
+              ? [
+                  ...cartItems.map((cartItem) => JSON.stringify(cartItem)),
+                  JSON.stringify(cartItem),
+                ]
+              : [JSON.stringify(cartItem)],
         }
       );
     } catch (error) {
-      console.log("error while adding product in card : ", error);
+      console.log("error while adding product in cart : ", error);
+    }
+  }
+
+  async removeFromCart(cartItems, cartItemId, userID) {
+    
+      let filteredArray = cartItems.filter((cartItem) => 
+        (cartItem.$id !== cartItemId))
+      
+      cartItems = filteredArray.map(v=>JSON.stringify(v))
+  
+
+    try {
+      return await this.database.updateDocument(
+        APPWRITE_DATABASE_ID,
+        APPWRITE_CART_COLLECTION_ID,
+        userID,
+        {
+          cartItems
+        }
+      )
+    } catch (error) {
+      console.log("error while removing product from cart : ", error);
     }
   }
 
