@@ -10,6 +10,7 @@ import {
   Login,
   MenProducts,
   NotFoundPage,
+  Product,
   WomenProducts,
 } from "./pages";
 import { Provider } from "react-redux";
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/products/all",
         element: <AllProducts />,
+      },
+      {
+        path:'/product/:product',
+        element: <Product/>
       },
       {
         path: "/products/men",
