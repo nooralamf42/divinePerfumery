@@ -23,6 +23,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import Button from "../button/Button";
+import { useNavigate } from "react-router-dom";
 
 function Card({
   images = [],
@@ -59,6 +60,8 @@ function Card({
       })
     );
   };
+
+  const navigate = useNavigate();
 
   const cartHandler = () => {
     let cartItem = { name, quantity: 1, price, description, images, $id };
@@ -103,9 +106,16 @@ function Card({
     window.open(url, "_blank");
   };
 
+  const productHandler = () => {
+    navigate(`/product/${$id}`);
+  };
+
   return (
     <div className="w-[250px] rounded-2xl border shadow-md overflow-hidden relative mt-4">
-      <div className="h-[300px] bg-black overflow-hidden">
+      <div
+        className="h-[300px] bg-black overflow-hidden"
+        onClick={productHandler}
+      >
         <img
           src={images[0]}
           className="object-cover h-full w-full hover:scale-110 duration-300 hover:brightness-100 hover:saturate-[1.15] hover:blur-[0.5px] hover:cursor-pointer"
@@ -137,10 +147,7 @@ function Card({
             </>
           )}
         </p>
-        <Button
-          name={"Buy Now"}
-          onClick={whatsAppHandler}
-        />
+        <Button name={"Buy Now"} onClick={whatsAppHandler} />
       </div>
 
       <div className={!admin && "hidden"}>

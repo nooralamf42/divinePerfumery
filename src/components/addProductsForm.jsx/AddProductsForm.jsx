@@ -13,7 +13,7 @@ function AddProductsForm() {
  
   const dispatch = useDispatch();
   let oldProduct = useSelector((state) => state.selectedProduct);
-  // console.log(oldProduct?.price)
+  console.log(oldProduct?.images)
   const { register, watch, handleSubmit, setValue, getValues} = useForm(oldProduct!== null && {
   values: {
       name: oldProduct?.name || "",
@@ -49,9 +49,8 @@ function AddProductsForm() {
         : [formData.price];
     const images =
       formData.images !== ""
-        ? [formData.featuredImage, formData.images]
+        ? [formData.featuredImage, ...formData.images.replace(/ /g, '').split(',')]
         : [formData.featuredImage];
-
     const slug = formData.slug;
     delete formData.slug;
     delete formData.featuredImage;
