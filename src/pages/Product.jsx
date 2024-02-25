@@ -84,7 +84,7 @@ export default function Product() {
 
   if (product)
     return (
-      <div className="flex flex-col justify-center lg:flex-row gap-16 lg:items-center w-fit p-4 mx-auto">
+      <div className="flex flex-col pb-10 justify-center lg:flex-row gap-16 lg:items-center w-fit p-4 mx-auto">
         <div className="flex flex-col gap-6 lg:w-2/4">
           <img
             src={activeImg}
