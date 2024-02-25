@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import appwriteService from "../../appwrite/config";
 import { removeFromCart } from "../../store/appSlice";
 import { toast } from "sonner";
+import { nanoid } from "@reduxjs/toolkit";
+import { Link } from "react-router-dom";
 
 export default function Cart({ isCartClicked, setIsCartClicked }) {
   const dispatch = useDispatch();
@@ -20,14 +22,22 @@ export default function Cart({ isCartClicked, setIsCartClicked }) {
     }
   });
 
-  const cartHandler = (itemId) => {
-    appwriteService
-      .removeFromCart(cartItems, itemId, userId)
+  const isLogged = useSelector(state=>state.isLogged)
+
+  const cartHandler = (cartItem) => {
+    if(isLogged){
+      appwriteService
+      .removeFromCart(cartItems, cartItem, userId)
       .then(() => {
-        dispatch(removeFromCart(itemId));
+        dispatch(removeFromCart(cartItem));
         toast("Item removed successfully");
       })
       .catch((error) => console.log(error));
+    }else{
+      console.log(cartItem)
+      dispatch(removeFromCart(cartItem));
+        toast.message("Item removed successfully");
+    }
   };
 
   const whatsAppHandler = () => {
@@ -103,7 +113,7 @@ export default function Cart({ isCartClicked, setIsCartClicked }) {
                               </h1>
                             ) : (
                               cartItems.map((product) => (
-                                <li key={product.$id} className="flex py-6">
+                                <li key={nanoid()} className="flex py-6">
                                   <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                     <img
                                       src={product.images[0]}
@@ -116,9 +126,9 @@ export default function Cart({ isCartClicked, setIsCartClicked }) {
                                     <div>
                                       <div className="flex justify-between text-base font-medium text-gray-900">
                                         <h3>
-                                          <a href={product.name}>
+                                          <Link to={`/product/${product.slug}`}>
                                             {product.name}
-                                          </a>
+                                          </Link>
                                         </h3>
                                         {product.price.length > 1 ? (
                                           <div>

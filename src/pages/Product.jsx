@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import appwriteService from "../appwrite/config";
 import { addToCart } from "../store/appSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -57,7 +58,7 @@ export default function Product() {
   };
 
   const cartHandler = () => {
-    let cartItem = { name: product.name, quantity: 1, price, description : product.description, images: product.images, $id: product.$id };
+    let cartItem = { name: product.name, quantity: 1, price, description : product.description, images: product.images, $id: nanoid(), slug: product.$id };
     let inCart= false
     cartItems.map(item=>{
       if(item.name == cartItem.name){
@@ -76,6 +77,8 @@ export default function Product() {
           })
           .catch((error) => console.log(error));
       } else {
+        console.log(cartItem)
+        console.log(cartItems)
         dispatch(addToCart(cartItem));
         toast(`${product.name} added in cart successfully`);
       }

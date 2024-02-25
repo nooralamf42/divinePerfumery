@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import Button from "../button/Button";
 import { useNavigate } from "react-router-dom";
+import { nanoid } from "@reduxjs/toolkit";
 
 function Card({
   images = [],
@@ -62,9 +63,9 @@ function Card({
   };
 
   const navigate = useNavigate();
-
   const cartHandler = () => {
-    let cartItem = { name, quantity: 1, price, description, images, $id };
+    
+    let cartItem = { name, quantity: 1, price, description, images, $id: nanoid(), slug: $id};
     if (inCart) toast(`${name} is already in cart`);
     else {
       if (isLogged) {

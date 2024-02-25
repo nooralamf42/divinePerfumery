@@ -42,7 +42,8 @@ function App() {
     <>
       <Navbar />
       <Outlet /> 
-      <Toaster />
+      <Toaster position={'bottom-left'} className='hidden sm:flex'/>
+      <Toaster position={'top-center'} className='sm:hidden'/>
     </> : <InitLoading/>
   );
 }

@@ -118,8 +118,8 @@ class Config {
 
   async removeFromCart(cartItems, cartItemId, userID) {
     
-      let filteredArray = cartItems.filter((cartItem) => 
-        (cartItem.$id !== cartItemId))
+      let filteredArray = cartItems.filter((item) => 
+        (item.$id !== cartItemId))
       
       cartItems = filteredArray.map(v=>JSON.stringify(v))
   
