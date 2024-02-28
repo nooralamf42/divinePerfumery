@@ -15,11 +15,11 @@ function Share({id}) {
   <DialogTrigger className="absolute right-0 pr-4 cursor-pointer"><BiShareAlt size={25}/></DialogTrigger>
   <DialogContent>
     <DialogHeader>
-      <DialogTitle>Are you absolutely sure?</DialogTitle>
-      <DialogDescription>
+      <DialogTitle>this feature is not available</DialogTitle>
+      {/* <DialogDescription>
         This action cannot be undone. This will permanently delete your account
         and remove your data from our servers.
-      </DialogDescription>
+      </DialogDescription> */}
     </DialogHeader>
   </DialogContent>
 </Dialog>
