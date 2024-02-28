@@ -8,5 +8,10 @@ import InitLoading from "./initLoading/InitLoading";
 import Login from "./login/Login";
 import Products from "./products/Products";
 import Signup from "./signup/Signup";
+import Protected from "./Protected";
+import UserMenu from "./user menu/UserMenu";
+import Share from "./share/Share";
 
-export {Container, Card, Products, Signup, Login, Dialog, AddProductsForm, Hero, Cart, InitLoading, }
+
+
+export {Container, Card, Products, Signup, Login, Dialog, AddProductsForm, Hero, Cart, InitLoading, Protected, UserMenu, Share, }

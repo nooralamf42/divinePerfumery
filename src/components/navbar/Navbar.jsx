@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Container from "../container/Container";
 import Logo from "../logo/Logo";
@@ -10,6 +11,7 @@ import appwriteAuthService from "../../appwrite/auth";
 import { toast } from "sonner";
 import { logout } from "../../store/appSlice";
 import Cart from "../cart/Cart";
+import UserMenu from "../user menu/UserMenu";
 
 function Navbar() {
   const isLogged = useSelector((state) => state.isLogged);
@@ -55,11 +57,8 @@ function Navbar() {
           </div>
           <div className="flex justify-between items-center gap-3">
             {isLogged ? (
-              <Button
-                name="Logout"
-                onClick={logoutHandler}
-                className={"hidden sm:inline-block"}
-              />
+            
+              <UserMenu logoutHandler = {logoutHandler}/>
             ) : (
               <Button
                 name="Login"

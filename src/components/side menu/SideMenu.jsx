@@ -2,7 +2,6 @@ import { BiMenu } from "react-icons/bi";
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { NavLink } from "react-router-dom";

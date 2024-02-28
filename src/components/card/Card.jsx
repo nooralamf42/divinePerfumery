@@ -1,3 +1,4 @@
+import { BiShareAlt } from "react-icons/bi"; 
 import { BsCartCheck } from "react-icons/bs";
 import { BiCartAdd } from "react-icons/bi";
 import { MdModeEdit } from "react-icons/md";
@@ -25,6 +26,7 @@ import {
 import Button from "../button/Button";
 import { useNavigate } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
+import Share from "../share/Share";
 
 function Card({
   images = [],
@@ -40,13 +42,18 @@ function Card({
   cartItems = null,
 }) {
   const dispatch = useDispatch();
-
   let inCart = false;
   const isLogged = useSelector((state) => state.isLogged);
 
   cartItems.map((cartItem) => {
     if (cartItem.$id == $id) inCart = true;
   });
+
+  const shareHandler = () =>{
+    console.log("sharehandler")
+    document.getElementById($id).close()
+    dispatch(setSelectedProduct(null))
+  }
 
   const editHandler = (e) => {
     document.getElementById("addProductDialog").show();
@@ -102,7 +109,9 @@ function Card({
   };
 
   const whatsAppHandler = () => {
-    const message = "I want to buy " + name;
+    const priceWithSize = price.length>1 ? price[1] : price[0]
+    const [productPrice, productQuantity] = priceWithSize.split('/')
+    const message = "I want to buy" + productQuantity+  " "+ name + ". Total price = " + productPrice;
     const url = `https://api.whatsapp.com/send?phone=918445678654&text=${message}`;
     window.open(url, "_blank");
   };
@@ -112,7 +121,7 @@ function Card({
   };
 
   return (
-    <div className="w-[250px] rounded-2xl border shadow-md overflow-hidden relative mt-4">
+    <div className={`w-[250px] rounded-2xl border shadow-md overflow-hidden relative mt-4 ${category.includes("!stock") ? 'rotate-6 bg-red-300' : 'blur-0'}`}>
       <div
         className="h-[300px] bg-black overflow-hidden"
         onClick={productHandler}
@@ -124,12 +133,13 @@ function Card({
           srcset=""
         />
       </div>
-      {isNew && (
-        <div className="absolute top-0 right-0 m-4 rounded-xl text-lg bg-green-500 drop-shadow-2xl text-white px-2">
-          <h1>New</h1>
+      {category.includes("!stock") && (
+        <div className="absolute top-0 left-0 m-4 rounded-xl text-lg bg-red-500 drop-shadow-2xl text-white px-2">
+          <h1>Out of stock</h1>
         </div>
       )}
-      <div className="p-4 space-y-2">
+      <div className="p-4 space-y-2 relative">
+      <Share/>
         <h1 className="text-2xl">{name}</h1>
         {description && (
           <p>

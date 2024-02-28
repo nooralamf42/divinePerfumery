@@ -15,6 +15,7 @@ import {
 } from "./pages";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
+import { Protected } from "./components/index.js";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,10 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login />,
+        element: <Protected>
+            <Login />
+          </Protected>
+          ,
       },
       {
         path: "/products/all",
@@ -47,11 +51,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/login/admin",
-        element: <AdminLogin />,
+        element: <Protected><AdminLogin /></Protected>,
       },
       {
         path: "/products/admin",
-        element: <AdminProductsPanel />,
+        element: <Protected><AdminProductsPanel /></Protected>,
       },
       {
         path: "*",

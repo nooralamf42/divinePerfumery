@@ -27,7 +27,7 @@ function AddProductsForm() {
     },
   });
 
-  const options = ['all', 'oudh', 'men']
+  const options = ['all', 'oudh', 'men', '!stock']
   const catergoryHandler = (selectedValue) =>{
     let preCategoryValue = getValues('category')
     let categoryValue 

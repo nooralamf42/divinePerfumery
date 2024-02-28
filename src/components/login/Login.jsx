@@ -18,7 +18,9 @@ function Login({ header = "Log in to your account" }) {
       .then((userData) => {
           appwriteService.getCart(userData.userId).then((userCart)=>{
             userCart = userCart.cartItems.length>0 ? userCart.cartItems.map(cartItem=>JSON.parse(cartItem)) : []
-            dispatch(login({userData, userCart}))
+            appwriteAuthService.getLogged().then(userData=>{
+              dispatch(login({userData, userCart}))
+            })
           })
       })
       .then(()=>{

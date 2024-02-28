@@ -5,6 +5,7 @@ import {
   APPWRITE_PROJECT_ID,
   APPWRITE_PROJECT_URL,
   APPWRITE_CART_COLLECTION_ID,
+  APPWRITE_USER_DATA_COLLECTION_ID
 } from "../envConfig";
 
 class Config {
@@ -149,6 +150,20 @@ class Config {
       console.log("error while adding product in card : ", error);
     }
   }
+
+  async createUserData(data){
+    try{
+      return await this.database.createDocument(
+        APPWRITE_DATABASE_ID,
+        APPWRITE_USER_DATA_COLLECTION_ID,
+        data.userId,
+        data
+      )
+    }catch(error){
+      console.log('error while creating userData: ', error)
+    }
+  }
+
 }
 
 let appwriteService = new Config();
