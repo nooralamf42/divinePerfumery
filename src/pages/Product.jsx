@@ -25,6 +25,7 @@ export default function Product() {
   const product = allProducts.find((product) => product.$id === productId);
   const [activeImg, setActiveImage] = useState(product.images[0]);
   const [price, setPrice] = useState(product.price);
+  const outOfStock = product.category.includes("!stock")
 
   let sizes = [2, 3, 5, 10, 20, 50, 100, 250];
   if((+product.price.find(price=>price.includes('/')).split('/')[1].replace('ml',''))>50)
@@ -177,13 +178,23 @@ export default function Product() {
                 </RadioGroup>
               </div>
 
-              <button
+              {
+                !outOfStock ? <button
                 onClick={cartHandler}
                 type="button"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add to cart
-              </button>
+              </button> :
+              <button
+              disabled
+              type="button"
+              className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+            >
+              Out of stock :(
+            </button>
+
+              }
             </form>
           </div>
         </div>
