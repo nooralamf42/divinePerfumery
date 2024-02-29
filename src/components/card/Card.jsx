@@ -153,7 +153,7 @@ function Card({
             </>
           )}
         </p>
-        <Button name={"Buy Now"} className={`${category.includes("!stock")} && hidden`} onClick={whatsAppHandler} />
+        <Button name={"Buy Now"} className={category.includes("!stock") ? 'hidden' : 'inline-block'} onClick={whatsAppHandler} />
       </div>
 
       <div className={!admin && "hidden"}>

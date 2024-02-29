@@ -13,7 +13,9 @@ function Signup() {
     const submit = (formData) => {
       appwriteAuthService.createUser(formData).then(user=>{
         appwriteService.createCart(user.userId).then(()=>{
-          dispatch(login({userData: user, userCart: []}))
+          // dispatch(login({userData: user, userCart: []}))
+          appwriteAuthService.getLogged().then(userData=>{
+            dispatch(login({userData, userCart : []}))})
         }).catch(error=>{
           console.log(error)
           throw error
