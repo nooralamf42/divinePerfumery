@@ -1,17 +1,17 @@
 .loading{
     background-repeat: no-repeat;
     background-size: cover;
-    animation: loading 7s infinite alternate-reverse;
+    animation: loading 7s infinite ease-in-out alternate-reverse;
 }
 
 @keyframes loading {
     0%{
         background-color: black;
     }
-    15%{
+    /* 15%{
         background-image: url('https://t4.ftcdn.net/jpg/02/01/28/95/360_F_201289558_RCIMKiSZkHQIrf2nPGERo12wYJZFE1WV.jpg');
-    }
-    20%{
+    } */
+    25%{
         background-image: url('https://images.pexels.com/photos/355748/pexels-photo-355748.jpeg?cs=srgb&dl=pexels-pixabay-355748.jpg&fm=jpg');
     }
     40%{
