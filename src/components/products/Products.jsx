@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 function Products({products, admin=false}) {
   let cartItems = useSelector(state=>state.cartProducts)
   let user = useSelector((state) => state.userData);
-  console.log(cartItems)
   let userId;
   if (user.userId) userId = user.userId;
   else userId = user.$id;

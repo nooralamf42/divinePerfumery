@@ -27,11 +27,11 @@ function Share({ id }) {
       <DialogContent className='w-[90%] sm:w-auto rounded-md'>
         <DialogTitle className='text-center mb-3'>Share on social media</DialogTitle>
 
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center gap-2 flex-wrap">
           <FacebookShareButton
             url={`https://www.divineperfumers.com/product/${id}`}
           >
-            <FacebookIcon round={true} />
+            <FacebookIcon round={true}/>
           </FacebookShareButton>
           <WhatsappShareButton
             url={`https://www.divineperfumers.com/product/${id}`}

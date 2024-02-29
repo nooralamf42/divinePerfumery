@@ -44,16 +44,11 @@ function Card({
   const dispatch = useDispatch();
   let inCart = false;
   const isLogged = useSelector((state) => state.isLogged);
-
+  console.log($id)
   cartItems.map((cartItem) => {
     if (cartItem.$id == $id) inCart = true;
   });
 
-  const shareHandler = () =>{
-    console.log("sharehandler")
-    document.getElementById($id).close()
-    dispatch(setSelectedProduct(null))
-  }
 
   const editHandler = (e) => {
     document.getElementById("addProductDialog").show();
@@ -111,7 +106,7 @@ function Card({
   const whatsAppHandler = () => {
     const priceWithSize = price.length>1 ? price[1] : price[0]
     const [productPrice, productQuantity] = priceWithSize.split('/')
-    const message = "I want to buy" + productQuantity+  " "+ name + ". Total price = " + productPrice;
+    const message = "I want to buy" + productQuantity+  " "+ name + ". Total price = ₹" + productPrice;
     const url = `https://api.whatsapp.com/send?phone=918445678654&text=${message}`;
     window.open(url, "_blank");
   };
@@ -139,7 +134,7 @@ function Card({
         </div>
       )}
       <div className="p-4 space-y-2 relative">
-      <Share/>
+      <Share id={$id}/>
         <h1 className="text-2xl">{name}</h1>
         {description && (
           <p>
@@ -158,7 +153,7 @@ function Card({
             </>
           )}
         </p>
-        <Button name={"Buy Now"} onClick={whatsAppHandler} />
+        <Button name={"Buy Now"} className={`${category.includes("!stock")} && hidden`} onClick={whatsAppHandler} />
       </div>
 
       <div className={!admin && "hidden"}>
