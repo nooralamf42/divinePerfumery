@@ -10,6 +10,7 @@ const AppSlice = createSlice({
     allProducts: [],
     userData: {},
     selectedProduct: null,
+    userAddress : null
   },
   name: "AppSlice",
   reducers: {
@@ -33,6 +34,7 @@ const AppSlice = createSlice({
       state.isAdmin = false;
       state.cartProducts = [];
       state.userData = {};
+      state.userAddress = null
     },
 
     setProducts: (state, actions) => {
@@ -70,6 +72,10 @@ const AppSlice = createSlice({
         (cartProduct) => cartProduct.$id !== actions.payload
       );
     },
+
+    setAddress : (state, actions) =>{
+      state.userAddress = actions.payload
+    },
   },
 });
 export const {
@@ -83,6 +89,7 @@ export const {
   addToCart,
   removeFromCart,
   initiateRedux,
+  setAddress
 } = AppSlice.actions;
 
 export default AppSlice.reducer;

@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import appwriteAuthService from "../../appwrite/auth";
 import { useDispatch} from "react-redux";
-import { login } from "../../store/appSlice";
+import { login, setAddress } from "../../store/appSlice";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { ADMIN_EMAIL } from "../../envConfig";
@@ -19,6 +19,7 @@ function Login({ header = "Log in to your account" }) {
           appwriteService.getCart(userData.userId).then((userCart)=>{
             userCart = userCart.cartItems.length>0 ? userCart.cartItems.map(cartItem=>JSON.parse(cartItem)) : []
             appwriteAuthService.getLogged().then(userData=>{
+              appwriteService.getUserAddress(userData.userId).then(userAddress =>dispatch(setAddress(userAddress)))
               dispatch(login({userData, userCart}))
             })
           })

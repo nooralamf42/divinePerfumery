@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function UserMenu({logoutHandler}) {
     const userData = useSelector(state=>state.userData)
@@ -31,17 +32,17 @@ export default function UserMenu({logoutHandler}) {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
+            <Link to="/profile">Profile</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <LocateIcon className="mr-2 h-4 w-4" />
-            <span>Address</span>
+            <Link to='/address'>Address</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <LogOut className="mr-2 h-4 w-4" />
-          <span onClick={()=>logoutHandler()}>Log out</span>
+          <Link onClick={()=>logoutHandler()}>Log out</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -11,7 +11,8 @@ import Signup from "./signup/Signup";
 import Protected from "./Protected";
 import UserMenu from "./user menu/UserMenu";
 import Share from "./share/Share";
+import AddressForm from "./address form/AddressForm";
 
 
 
-export {Container, Card, Products, Signup, Login, Dialog, AddProductsForm, Hero, Cart, InitLoading, Protected, UserMenu, Share, }
+export {Container, Card, Products, Signup, Login, Dialog, AddProductsForm, Hero, Cart, InitLoading, Protected, UserMenu, Share, AddressForm}

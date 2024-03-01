@@ -4,7 +4,7 @@ import Navbar from "./components/navbar/Navbar";
 import { Outlet } from "react-router-dom";
 import appwriteAuthService from "./appwrite/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { initiateRedux, login, setProducts } from "./store/appSlice";
+import { initiateRedux, login, setProducts, setAddress} from "./store/appSlice";
 import appwriteService from "./appwrite/config";
 import { toast } from "sonner";
 import { InitLoading } from "./components";
@@ -17,6 +17,7 @@ function App() {
         userData.userId = userData.$id
         let userCart = userItems?.cartItems
         userCart = userCart.length>0 ? userCart.map(cart=>JSON.parse(cart)) : []
+        appwriteService.getUserAddress(userData.userId).then(userAddress =>dispatch(setAddress(userAddress)))
         dispatch(login({userData, userCart}))
       })
     })

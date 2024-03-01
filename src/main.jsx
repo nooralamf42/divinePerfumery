@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
+  AddAdress,
+  Address,
   AdminLogin,
   AdminProductsPanel,
   AllProducts,
@@ -11,6 +13,7 @@ import {
   MenProducts,
   NotFoundPage,
   Product,
+  Profile,
   WomenProducts,
 } from "./pages";
 import { Provider } from "react-redux";
@@ -56,6 +59,18 @@ const router = createBrowserRouter([
       {
         path: "/products/admin",
         element: <Protected><AdminProductsPanel /></Protected>,
+      },
+      {
+        path: "/address",
+        element: <Address />,
+      },
+      {
+        path: "/addaddress",
+        element: <AddAdress />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "*",

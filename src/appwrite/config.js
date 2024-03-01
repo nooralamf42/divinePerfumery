@@ -151,16 +151,44 @@ class Config {
     }
   }
 
-  async createUserData(data){
+  async getUserAddress(userId){
+    try {
+      return await this.database.getDocument(
+        APPWRITE_DATABASE_ID,
+        APPWRITE_USER_DATA_COLLECTION_ID,
+        userId
+      )
+    } catch (error) {
+      console.log('error while getting user address : ', error)
+      throw error
+    }
+  }
+
+  async createUserAddress(data, userId){
     try{
       return await this.database.createDocument(
         APPWRITE_DATABASE_ID,
         APPWRITE_USER_DATA_COLLECTION_ID,
-        data.userId,
+        userId,
         data
       )
     }catch(error){
-      console.log('error while creating userData: ', error)
+      console.log('error while creating address : ', error)
+      throw Error("Error while creating address")
+    }
+  }
+
+  async updateUserAddress(data, userId){
+    try{
+      return await this.database.updateDocument(
+        APPWRITE_DATABASE_ID,
+        APPWRITE_USER_DATA_COLLECTION_ID,
+        userId,
+        data
+      )
+    }catch(error){
+      console.log('error while updating address : ', error)
+      throw Error("Error while updating user address")
     }
   }
 
