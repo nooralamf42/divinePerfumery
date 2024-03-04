@@ -15,30 +15,10 @@ function Home() {
   const products = useSelector(state=>state.allProducts)
   return (
     <>
-      <section>
+      {/* <section>
         <Hero/>
-        {/* <img src={image1} alt="" srcset="" /> */}
-        {/* <Container>
-          <div className="flex flex-col sm:flex-row flex-wrap h-[90vh] items-center sm:justify-between">
-            <div className="w-4/5 sm:w-[30%] h-[70%] bg-black overflow-hidden rounded-2xl">
-              <img
-                className="object-bottom object-cover h-full w-full"
-                src={heroImage}
-                alt=""
-                srcset=""
-              />
-            </div>
-            <div className="w-[70%] text-right box-border pt-12">
-              <h1 className="text-3xl sm:text-4xl md:text-7xl drop-shadow-2xl hover:scale-105 duration-200 hover:-rotate-1 leading-none hover:cursor-pointer">
-                DIVINE PERFUMERS
-              </h1>
-              <p className="sm:pt-5 text-sm sm:text-xl">
-                "Perfumes are the feelings of flowers"
-              </p>
-            </div>
-          </div>
-        </Container> */}
-      </section>
+
+      </section> */}
 
       <section>
           <div className="flex overflow-hidden md:my-20">

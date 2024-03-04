@@ -1,4 +1,4 @@
-import { Client, Databases } from "appwrite";
+import { Client, Databases, Query} from "appwrite";
 import {
   APPWRITE_PRODUCTS_COLLECTION_ID,
   APPWRITE_DATABASE_ID,
@@ -62,7 +62,8 @@ class Config {
     try {
       return await this.database.listDocuments(
         APPWRITE_DATABASE_ID,
-        APPWRITE_PRODUCTS_COLLECTION_ID
+        APPWRITE_PRODUCTS_COLLECTION_ID,
+        [Query.limit(5000)]
       );
     } catch (error) {
       console.log("error while getting products : ", error);

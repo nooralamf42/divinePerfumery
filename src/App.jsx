@@ -22,6 +22,7 @@ function App() {
       })
     })
     appwriteService.getAllProducts().then(products=>{
+      console.log(products)
       dispatch(setProducts(products.documents))
       dispatch(initiateRedux())
     }).catch(error => toast(error))

@@ -13,7 +13,7 @@ function AddProductsForm() {
  
   const dispatch = useDispatch();
   let oldProduct = useSelector((state) => state.selectedProduct);
-  console.log(oldProduct?.images)
+  // console.log(oldProduct?.images)
   const { register, watch, handleSubmit, setValue, getValues} = useForm(oldProduct!== null && {
   values: {
       name: oldProduct?.name || "",
