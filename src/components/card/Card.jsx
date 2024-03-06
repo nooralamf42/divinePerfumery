@@ -46,7 +46,8 @@ function Card({
   const isLogged = useSelector((state) => state.isLogged);
   console.log($id)
   cartItems.map((cartItem) => {
-    if (cartItem.$id == $id) inCart = true;
+    console.log(cartItem)
+    if (cartItem.slug == $id) inCart = true;
   });
 
 
