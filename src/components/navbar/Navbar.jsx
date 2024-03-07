@@ -55,7 +55,7 @@ function Navbar() {
             </NavLink> */}
             
           </div>
-          <div className="flex justify-between items-center gap-3">
+          <div className="flex justify-center items-center gap-3">
             {isLogged ? (
             
               <UserMenu logoutHandler = {logoutHandler}/>
