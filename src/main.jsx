@@ -8,12 +8,17 @@ import {
   AdminLogin,
   AdminProductsPanel,
   AllProducts,
+  Cancellation,
+  ContactUs,
   Home,
   Login,
   MenProducts,
   NotFoundPage,
+  PrivacyPolicy,
   Product,
   Profile,
+  Shipping,
+  TermsAndConditions,
   WomenProducts,
 } from "./pages";
 import { Provider } from "react-redux";
@@ -67,6 +72,26 @@ const router = createBrowserRouter([
       {
         path: "/addaddress",
         element: <AddAdress />,
+      },
+      {
+        path: "/terms-and-conditions",
+        element: <TermsAndConditions/>,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs/>,
+      },
+      {
+        path: "/shipping-and-delivery",
+        element: <Shipping />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "/cancellation-and-refund",
+        element: <Cancellation />,
       },
       {
         path: "/profile",
