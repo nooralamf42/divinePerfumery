@@ -1,4 +1,4 @@
-import { BiShareAlt } from "react-icons/bi"; 
+import perf1 from '../../images/items/perf1.png'
 import { BsCartCheck } from "react-icons/bs";
 import { BiCartAdd } from "react-icons/bi";
 import { MdModeEdit } from "react-icons/md";
@@ -119,12 +119,28 @@ function Card({
   return (
     <div className={`w-[250px] rounded-2xl border shadow-md overflow-hidden relative mt-4 ${category.includes("!stock") ? 'rotate-6 bg-red-300' : 'blur-0'}`}>
       <div
-        className="h-[300px] bg-black overflow-hidden"
+        className="h-[300px] group overflow-hidden relative"
         onClick={productHandler}
       >
+        <div className={`h-full w-full absolute text-center text-nowrap group-hover:scale-105 duration-300 ${name.length>7 ? 
+          name.length>12 ? 'text-2xl' : 'text-3xl'
+           : 'text-5xl'}`}>
+          <div className='absolute bottom-0 text-center w-full'>
+          <p className='font-semibold uppercase text-gray-300'>{name}</p>
+          <p className='font-semibold uppercase text-gray-600'>{name}</p>
+          </div>
+
+          <div className='absolute top-0 text-center w-full'>
+          <p className='font-semibold uppercase text-gray-300 pt-6'>{name}</p>
+          <p className='font-semibold uppercase text-gray-600'>{name}</p>
+          </div>
+          
+          
+        </div>
         <img
-          src={images[0]}
-          className="object-cover h-full w-full hover:scale-110 duration-300 hover:brightness-100 hover:saturate-[1.15] hover:blur-[0.5px] hover:cursor-pointer"
+          src={perf1}
+          // src={images[0]}
+          className="object-cover scale-50 h-full w-full duration-300 drop-shadow-2xl rotate-12 hover:brightness-100 hover:saturate-[1.15] hover:blur-[0.5px] hover:cursor-pointer"
           alt=""
           srcset=""
         />

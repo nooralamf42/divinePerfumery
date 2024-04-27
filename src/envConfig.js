@@ -10,6 +10,7 @@ const envConfig = {
     import.meta.env.VITE_APPWRITE_CART_COLLECTION_ID
   ),
   ADMIN_EMAIL: String(import.meta.env.VITE_ADMIN_EMAIL),
+  APPWRITE_BUCKET_ID : String(import.meta.env.VITE_APPWRITE_BUCKET_ID)
 };
 
 export const {
@@ -20,4 +21,5 @@ export const {
   APPWRITE_PROJECT_ID,
   APPWRITE_PROJECT_URL,
   ADMIN_EMAIL,
+  APPWRITE_BUCKET_ID
 } = envConfig;

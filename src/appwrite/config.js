@@ -1,22 +1,25 @@
-import { Client, Databases, Query} from "appwrite";
+import { Client, Databases, ID, Query, Storage} from "appwrite";
 import {
   APPWRITE_PRODUCTS_COLLECTION_ID,
   APPWRITE_DATABASE_ID,
   APPWRITE_PROJECT_ID,
   APPWRITE_PROJECT_URL,
   APPWRITE_CART_COLLECTION_ID,
-  APPWRITE_USER_DATA_COLLECTION_ID
+  APPWRITE_USER_DATA_COLLECTION_ID,
+  APPWRITE_BUCKET_ID
 } from "../envConfig";
 
 class Config {
   client = new Client();
   database;
+  storage;
 
   constructor() {
     this.client
       .setEndpoint(APPWRITE_PROJECT_URL)
       .setProject(APPWRITE_PROJECT_ID);
     this.database = new Databases(this.client);
+    this.storage = new Storage(this.client)
   }
 
   async createProduct(data, slug) {
@@ -190,6 +193,20 @@ class Config {
     }catch(error){
       console.log('error while updating address : ', error)
       throw Error("Error while updating user address")
+    }
+  }
+
+  async uploadImage(imageFile){
+    try{
+      let url = await this.storage.createFile(
+        APPWRITE_BUCKET_ID,
+        ID.unique(),
+        imageFile
+      )
+      await this.storage.getFilePreview(APPWRITE_BUCKET_ID, url)
+    }catch(error){
+      console.log('error while uploading image : ', error)
+      throw Error("Error while updating image")
     }
   }
 
